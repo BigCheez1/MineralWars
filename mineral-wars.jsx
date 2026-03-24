@@ -126,25 +126,25 @@ const LOCATIONS = [
   { id: "midland", name: "Midland", desc: "Supply hub. Average prices.", vibe: "🏗️" },
   { id: "odessa", name: "Odessa", desc: "Blue collar. Cheap materials, pricey commodities.", vibe: "🔧" },
   { id: "houston", name: "Houston", desc: "Corporate money. They pay top dollar for crude.", vibe: "🏙️" },
-  { id: "lubbock", name: "Lubbock", desc: "College town. Weird helium market.", vibe: "🌾" },
+  { id: "lubbock", name: "Lubbock", desc: "College town. Volatile equipment demand.", vibe: "🌾" },
   { id: "okc", name: "Oklahoma City", desc: "Cheap crude. Expensive imports.", vibe: "🤠" },
   { id: "permian", name: "The Permian", desc: "Source. Cheap crude & mud, pricey rights.", vibe: "🛢️" },
 ];
 
 const COMMODITIES = [
   { id: "sand", name: "Frac Sand", basePrice: 120, minPrice: 55, maxPrice: 250, unit: "tons" },
-  { id: "pipe", name: "Pipe Fittings", basePrice: 350, minPrice: 140, maxPrice: 700, unit: "crates" },
+  { id: "pipe", name: "Tubing", basePrice: 350, minPrice: 140, maxPrice: 700, unit: "crates" },
   { id: "mud", name: "Drilling Mud", basePrice: 800, minPrice: 350, maxPrice: 1500, unit: "barrels" },
   { id: "crude", name: "Crude Oil", basePrice: 2200, minPrice: 900, maxPrice: 4500, unit: "barrels" },
   { id: "mineral", name: "Mineral Rights", basePrice: 9000, minPrice: 4000, maxPrice: 18000, unit: "acres" },
-  { id: "helium", name: "Helium Reserves", basePrice: 28000, minPrice: 12000, maxPrice: 55000, unit: "claims" },
+  { id: "helium", name: "Workover Rig", basePrice: 28000, minPrice: 12000, maxPrice: 55000, unit: "claims" },
 ];
 
 // Base events — weights get overridden per difficulty
 const EVENTS_BASE = [
   // Price events
   { text: "🛢️ Wildcat well hit near {location}! Crude oversupply.", effect: "crash", commodity: "crude", cat: "price" },
-  { text: "💥 Pipeline burst! Pipe fitting shortage.", effect: "spike", commodity: "pipe", cat: "price" },
+  { text: "💥 Pipeline burst! Tubing shortage.", effect: "spike", commodity: "pipe", cat: "price" },
   { text: "🇸🇦 OPEC flooded the market. Oil tanking.", effect: "crash", commodity: "crude", cat: "price" },
   { text: "📉 Fracking moratorium rumors. Sand prices dropped.", effect: "crash", commodity: "sand", cat: "price" },
   { text: "🌪️ Tornado shut down ops. Drilling mud in short supply.", effect: "spike", commodity: "mud", cat: "price" },

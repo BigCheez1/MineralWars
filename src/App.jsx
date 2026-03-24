@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from "react";
+import fourcastLogo from "../4cast_logo.jpeg";
+import fourcastSite from "../4site.jpeg";
 
 // ============================================================
 // DIFFICULTY CONFIGS
@@ -18,7 +20,7 @@ const DIFFICULTIES = {
     travelCost: 200,
     capacity: 120,
     days: 30,
-    eventChance: 0.45,
+    eventChance: 0.55,
     priceMultiplier: 1.0,    // normal prices
     spreadStrength: 1.0,     // full location spreads
     volatility: 0.28,        // higher = more opportunities
@@ -49,7 +51,7 @@ const DIFFICULTIES = {
     travelCost: 400,
     capacity: 80,
     days: 30,
-    eventChance: 0.55,
+    eventChance: 0.65,
     priceMultiplier: 1.0,
     spreadStrength: 1.0,
     volatility: 0.22,
@@ -79,7 +81,7 @@ const DIFFICULTIES = {
     travelCost: 500,
     capacity: 60,
     days: 25,
-    eventChance: 0.65,
+    eventChance: 0.75,
     priceMultiplier: 0.7,    // depressed market
     spreadStrength: 0.75,    // tighter spreads (less arbitrage)
     volatility: 0.16,        // less price movement
@@ -126,25 +128,25 @@ const LOCATIONS = [
   { id: "midland", name: "Midland", desc: "Supply hub. Average prices.", vibe: "🏗️" },
   { id: "odessa", name: "Odessa", desc: "Blue collar. Cheap materials, pricey commodities.", vibe: "🔧" },
   { id: "houston", name: "Houston", desc: "Corporate money. They pay top dollar for crude.", vibe: "🏙️" },
-  { id: "lubbock", name: "Lubbock", desc: "College town. Weird helium market.", vibe: "🌾" },
+  { id: "lubbock", name: "Lubbock", desc: "College town. Volatile equipment demand.", vibe: "🌾" },
   { id: "okc", name: "Oklahoma City", desc: "Cheap crude. Expensive imports.", vibe: "🤠" },
   { id: "permian", name: "The Permian", desc: "Source. Cheap crude & mud, pricey rights.", vibe: "🛢️" },
 ];
 
 const COMMODITIES = [
   { id: "sand", name: "Frac Sand", basePrice: 120, minPrice: 55, maxPrice: 250, unit: "tons" },
-  { id: "pipe", name: "Pipe Fittings", basePrice: 350, minPrice: 140, maxPrice: 700, unit: "crates" },
+  { id: "pipe", name: "Tubing", basePrice: 350, minPrice: 140, maxPrice: 700, unit: "crates" },
   { id: "mud", name: "Drilling Mud", basePrice: 800, minPrice: 350, maxPrice: 1500, unit: "barrels" },
   { id: "crude", name: "Crude Oil", basePrice: 2200, minPrice: 900, maxPrice: 4500, unit: "barrels" },
   { id: "mineral", name: "Mineral Rights", basePrice: 9000, minPrice: 4000, maxPrice: 18000, unit: "acres" },
-  { id: "helium", name: "Helium Reserves", basePrice: 28000, minPrice: 12000, maxPrice: 55000, unit: "claims" },
+  { id: "helium", name: "Workover Rig", basePrice: 28000, minPrice: 12000, maxPrice: 55000, unit: "claims" },
 ];
 
 // Base events — weights get overridden per difficulty
 const EVENTS_BASE = [
   // Price events
   { text: "🛢️ Wildcat well hit near {location}! Crude oversupply.", effect: "crash", commodity: "crude", cat: "price" },
-  { text: "💥 Pipeline burst! Pipe fitting shortage.", effect: "spike", commodity: "pipe", cat: "price" },
+  { text: "💥 Pipeline burst! Tubing shortage.", effect: "spike", commodity: "pipe", cat: "price" },
   { text: "🇸🇦 OPEC flooded the market. Oil tanking.", effect: "crash", commodity: "crude", cat: "price" },
   { text: "📉 Fracking moratorium rumors. Sand prices dropped.", effect: "crash", commodity: "sand", cat: "price" },
   { text: "🌪️ Tornado shut down ops. Drilling mud in short supply.", effect: "spike", commodity: "mud", cat: "price" },
@@ -284,6 +286,7 @@ function getTitle(netWorth) {
 const PRESTIGE_THRESHOLD = 50000; // net worth required to prestige
 const PRESTIGE_CARRYOVER = 0.05;  // 5% of NW carries as bonus starting cash
 const PRESTIGE_NUMERALS = ["", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+const FOURCAST_CALENDLY_URL = "https://calendly.com/zac_4cast/american-dream";
 
 function getPrestigeName(level) {
   if (level <= 0) return "";
@@ -320,6 +323,60 @@ function applyPrestige(baseDiff, level) {
 // ============================================================
 // COMPONENTS
 // ============================================================
+
+function FourcastBranding({ compact = false }) {
+  return (
+    <div style={{
+      marginTop: compact ? 18 : 24,
+      width: "100%",
+      maxWidth: compact ? 360 : 440,
+      background: "#111",
+      border: "1px solid #1f1f1f",
+      borderRadius: 12,
+      padding: compact ? 12 : 14,
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      textAlign: "left",
+    }}>
+      <img
+        src={fourcastLogo}
+        alt="4cast logo"
+        style={{ width: compact ? 42 : 52, height: compact ? 42 : 52, borderRadius: 8, objectFit: "cover" }}
+      />
+      {!compact && (
+        <img
+          src={fourcastSite}
+          alt="4cast brand"
+          style={{ width: 52, height: 52, borderRadius: 8, objectFit: "cover", border: "1px solid #2a2a2a" }}
+        />
+      )}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 10, color: "#666", letterSpacing: 1.5, textTransform: "uppercase" }}>
+          Powered by 4cast
+        </div>
+        <a
+          href={FOURCAST_CALENDLY_URL}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: "inline-block",
+            marginTop: 6,
+            color: "#F5A623",
+            textDecoration: "none",
+            fontSize: compact ? 11 : 12,
+            fontWeight: 700,
+            borderBottom: "1px solid #F5A62355",
+            paddingBottom: 2,
+            lineHeight: 1.25,
+          }}
+        >
+          Schedule a 4cast demo with Calendly
+        </a>
+      </div>
+    </div>
+  );
+}
 
 function TradeModal({ commodity, price, cash, inventoryQty, capacity, usedCapacity, mode, onConfirm, onClose }) {
   const [qty, setQty] = useState("");
@@ -474,6 +531,7 @@ function GameOverScreen({ cash, inventory, prices, debt, day, diff, prestige, ba
           letterSpacing: 1, textTransform: "uppercase",
         }}>PLAY AGAIN</button>
       </div>
+      <FourcastBranding compact />
     </div>
   );
 }
@@ -541,7 +599,7 @@ export default function MineralWars() {
 
     // Event chance: traveling is riskier than laying low
     const eventRoll = Math.random();
-    const eventThreshold = isLayLow ? diff.eventChance * 0.5 : diff.eventChance;
+    const eventThreshold = isLayLow ? diff.eventChance * 0.5 + 0.05 : diff.eventChance;
 
     if (eventRoll < eventThreshold) {
       let events = buildEvents(diff);
@@ -839,6 +897,7 @@ export default function MineralWars() {
             onMouseDown={e => e.target.style.transform = "scale(0.95)"}
             onMouseUp={e => e.target.style.transform = "scale(1)"}
           >START THE HUSTLE</button>
+          <FourcastBranding />
         </div>
       </div>
     );
@@ -982,6 +1041,7 @@ export default function MineralWars() {
               );
             })}
           </div>
+          <FourcastBranding />
         </div>
       </div>
     );
@@ -1569,6 +1629,8 @@ export default function MineralWars() {
             </div>
           </div>
         )}
+
+        <FourcastBranding compact />
       </div>
     </div>
   );
