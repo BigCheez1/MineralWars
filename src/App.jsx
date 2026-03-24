@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-import fourcastLogo from "../4cast_logo.jpeg";
 import fourcastSite from "../4site.jpeg";
 
 // ============================================================
@@ -340,17 +339,16 @@ function FourcastBranding({ compact = false }) {
       textAlign: "left",
     }}>
       <img
-        src={fourcastLogo}
-        alt="4cast logo"
-        style={{ width: compact ? 42 : 52, height: compact ? 42 : 52, borderRadius: 8, objectFit: "cover" }}
+        src={fourcastSite}
+        alt="4cast brand"
+        style={{
+          width: compact ? 42 : 52,
+          height: compact ? 42 : 52,
+          borderRadius: 8,
+          objectFit: "cover",
+          border: "1px solid #2a2a2a",
+        }}
       />
-      {!compact && (
-        <img
-          src={fourcastSite}
-          alt="4cast brand"
-          style={{ width: 52, height: 52, borderRadius: 8, objectFit: "cover", border: "1px solid #2a2a2a" }}
-        />
-      )}
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ fontSize: 10, color: "#666", letterSpacing: 1.5, textTransform: "uppercase" }}>
           Powered by 4cast
